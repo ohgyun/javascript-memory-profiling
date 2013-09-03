@@ -1,0 +1,39 @@
+<!doctype html5>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Heap Profiling Test</title>
+<style>
+body {font-family:sans-serif;}
+button {display:block; margin:10px; padding:10px; font-size:15px;}
+</style>
+</head>
+<body>
+<h1>Heap Profiling Test</h1>
+<h2>문자열</h2>
+<p>데브툴의 Profiles 패널에서 Heap Snapshot을 찍어본다.</p>
+<script>
+// Primitive 값은 힙 프로파일링에 표시되지 않는다.
+var __smallNumber = 1000;
+
+// 숫자가 큰 경우엔 확인할 수 있다.
+var __largeNumber = 1e53;
+
+// 연결된 문자열은 Shallow size와 Retained size가 동일하다.
+// 한 글자 당 2byte 씩, 24byte를 차지한다.
+var __shortString = 'small string';
+
+// 하지만 한글은 기대하는 것처럼 정확하게 2byte씩 차지하진 않는다.
+// ASCII 코드가 아닌 문자열은 내부적으로 별도로 처리하기 때문이고,
+// 힙 프로파일링에서도 Shallow size와 Retained size의 크기가 다르게 표현된다.
+var __shortKoreanString = '가나다';
+
+// 문자열이 길 더라도 동일하게 표시된다.
+var __mediumString = 'large string large string large string large string large string large string large string large string large string large string large string large string large string large string large string large string large string large string large string large string large string large string large string large string large string large string large string large string large string large string large string large string large string large string large string large string large string large string large string large string large string large string large string large string large string large string large string large string large string large string large string large string large string large string large string large string large string large string large string large string large string large string large string large string large string large string large string large string large string large string large string large string large string large string';
+
+// 문자열을 병합한 경우라면, 문자열의 참조로 더한다.
+// Shallow size가 작고 Retained size가 큰 것을 확인한다.
+var __longString = __mediumString + __mediumString + __mediumString + __mediumString;
+</script>
+</body>
+</html>

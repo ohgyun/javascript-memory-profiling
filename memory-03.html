@@ -1,0 +1,49 @@
+<!doctype html5>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Heap Profiling Test</title>
+<style>
+body {font-family:sans-serif;}
+button {display:block; margin:10px; padding:10px; font-size:15px;}
+</style>
+</head>
+<body>
+<h1>Heap Profiling Test</h1>
+<h2>메모리 증가</h2>
+<p>타임라인 패널의 Record 버튼을 클릭하고, `추가` 버튼을 클릭한다.<br>
+타임라인 패널과 프로파일 패널에서 메모리 증가량과 코드를 확인한다.</p>
+<button onclick="addToArray();">배열에 추가</button>
+<button onclick="addItems();">Item 인스턴스 추가</button>
+<script>
+
+arr = [];
+itemCache = [];
+
+// 타임라인에서 확인하면, DOM이나 핸들러의 수가 늘어나지 않으면서 메모리가 증가한다.
+
+// 배열은 최초 일정한 크기를 힙 공간으로 할당받는다.
+// 할당공간이 다 차기 전까진 이전 공간에 할당하고, 넘어서는 경우 새 메모리를 할당받는다.
+// Record Heap Allocation에서 여러 번 클릭하면서 테스트해보면 된다.
+// 최초엔 매 클릭마다 메모리가 할당되지만, 이후부턴 배열의 크기가 더 커져 여러 번 반복해야 메모리가 할당된다.
+function addToArray() {
+    for (var i = 0; i < 10000; i++) {
+        arr.push(i);
+    }
+}
+
+function Item(x) {
+    this.x = x;
+}
+
+// 매 클릭마다, 아이템 인스턴스의 메모리 할당이 이루어지며,
+// itemCache 배열의 확장이 필요한 때에 확장 영역만큼의 메모리 할당이 발생함을 확인한다.
+function addItems() {
+    for (var i = 0; i < 1000; i++) {
+        itemCache.push(new Item(i));
+    }
+}
+
+</script>
+</body>
+</html>
