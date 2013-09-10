@@ -1,0 +1,36 @@
+<!doctype html5>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Heap Profiling Test</title>
+<style>
+body {font-family:sans-serif;}
+button {display:block; margin:10px; padding:10px; font-size:15px;}
+</style>
+</head>
+<body>
+<h1>Heap Profiling Test</h1>
+<h2>Retained size</h2>
+<p>Heap Snapshot을 찍고, Item 생성자의 인스턴스에서 foo, bar, baz의 Retained size를 비교한다.</p>
+<script>
+
+function createBigString() {
+    return new Array(10000).join('XXXXXXXXX');
+}
+
+function Item(str) {
+    this.str = str || createBigString();
+}
+
+// foo를 삭제하면 문자열 또한 삭제된다.
+// 따라서 foo의 retained size에는 문자열의 크기가 포함된다.
+var foo = new Item();
+
+// 하지만, bar와 baz는 문자열을 공유한다.
+// 따라서 bar와 baz의 retained size에는 문자열의 크기가 포함되어 있지 않다.
+var bar = new Item();
+var baz = new Item(bar.str);
+
+</script>
+</body>
+</html>

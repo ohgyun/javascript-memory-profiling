@@ -10,7 +10,7 @@ button {display:block; margin:10px; padding:10px; font-size:15px;}
 </head>
 <body>
 <h1>Heap Profiling Test</h1>
-<h2>문자열</h2>
+<h2>Shallow size</h2>
 <p>데브툴의 Profiles 패널에서 Heap Snapshot을 찍어본다.</p>
 <script>
 // Primitive 값은 힙 프로파일링에 표시되지 않는다.
@@ -32,8 +32,18 @@ var __shortKoreanString = '가나다';
 var __mediumString = 'large string large string large string large string large string large string large string large string large string large string large string large string large string large string large string large string large string large string large string large string large string large string large string large string large string large string large string large string large string large string large string large string large string large string large string large string large string large string large string large string large string large string large string large string large string large string large string large string large string large string large string large string large string large string large string large string large string large string large string large string large string large string large string large string large string large string large string large string large string large string large string large string large string large string';
 
 // 문자열을 병합한 경우라면, 문자열의 참조로 더한다.
-// Shallow size가 작고 Retained size가 큰 것을 확인한다.
+// Shallow size 외에 참조의 크기만 더해져 있다.
 var __longString = __mediumString + __mediumString + __mediumString + __mediumString;
+
+// 숫자 배열
+// 숫자는 힙 스냅샷에 보이지 않는다.
+var __arrNumbers = [];
+for (var i = 0; i < 100000; i++) __arrNumbers[i] = i;
+
+// 문자 배열
+var __arrStrings = [];
+for (var i = 0; i < 100000; i++) __arrStrings[i] = 'str' + i;
+
 </script>
 </body>
 </html>
