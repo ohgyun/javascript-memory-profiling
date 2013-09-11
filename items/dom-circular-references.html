@@ -3,20 +3,16 @@
 <head>
 <meta charset="utf-8">
 <title>Heap Profiling Test</title>
-<style>
-body {font-family:sans-serif;}
-button {display:block; margin:10px; padding:10px; font-size:15px;}
-.leakable {width:100px; background:orange;}
-</style>
+<link href="../css/main.css" rel="stylesheet" type="text/css">
 </head>
 <body>
-<h1>Heap Profiling Test</h1>
-<h2>DOM과 이벤트 리스너의 순환 참조</h2>
+<a href="../index.html">JavaScript Heap Profiling</a>
+<h1>DOM과 이벤트 리스너의 순환 참조</h1>
 <p>버튼 생성, 삭제 후 힙 스냅샷을 비교한다. 버튼 엘리먼트를 삭제하면 모두 이벤트 리스너도 삭제되는 걸 확인한다.<br>
 DOM과 이벤트 리스너의 순환 참조는 메모리 릭 패턴으로 알려져 있으나, 현재 버전의 V8에서는 올바르게 GC된다.</p>
 <button onclick="createLeakableElement();">순환 참조를 생성하는 버튼 생성</button>
 <button onclick="removeLeakableButton();">생성한 모든 버튼 삭제</button>
-<script>
+<script id="code">
 // DOM에 이벤트 리스너를 추가할 때, 함수 종료 후에도 GC되지 않는다.
 function createLeakableElement() {
     var button = document.createElement('button');
@@ -43,5 +39,6 @@ function removeLeakableButton() {
     });
 }
 </script>
+<script src="../js/code.js"></script>
 </body>
 </html>

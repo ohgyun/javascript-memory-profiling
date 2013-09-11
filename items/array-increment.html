@@ -3,19 +3,16 @@
 <head>
 <meta charset="utf-8">
 <title>Heap Profiling Test</title>
-<style>
-body {font-family:sans-serif;}
-button {display:block; margin:10px; padding:10px; font-size:15px;}
-</style>
+<link href="../css/main.css" rel="stylesheet" type="text/css">
 </head>
 <body>
-<h1>Heap Profiling Test</h1>
-<h2>메모리 증가</h2>
+<a href="../index.html">JavaScript Heap Profiling</a>
+<h1>메모리 증가</h1>
 <p>타임라인 패널의 Record 버튼을 클릭하고, `추가` 버튼을 클릭한다.<br>
 타임라인 패널과 프로파일 패널에서 배열의 메모리 증가와 할당된 값을 확인한다.</p>
 <button onclick="addToArray();">배열에 추가</button>
 <button onclick="addItems();">Item 인스턴스 추가</button>
-<script>
+<script id="code">
 
 arr = [];
 itemCache = [];
@@ -45,5 +42,6 @@ function addItems() {
 }
 
 </script>
+<script src="../js/code.js"></script>
 </body>
 </html>

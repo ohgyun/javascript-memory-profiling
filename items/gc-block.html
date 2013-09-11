@@ -3,19 +3,16 @@
 <head>
 <meta charset="utf-8">
 <title>Heap Profiling Test</title>
-<style>
-body {font-family:sans-serif;}
-button {display:block; margin:10px; padding:10px; font-size:15px;}
-</style>
+<link href="../css/main.css" rel="stylesheet" type="text/css">
 </head>
 <body>
-<h1>Heap Profiling Test</h1>
-<h2>GC에 의한 블럭</h2>
+<a href="../index.html">JavaScript Heap Profiling</a>
+<h1>GC에 의한 블럭</h1>
 <p>타임라인을 켜고 메모리 추가 버튼을 반복해서 클릭한다.<br>
 GC가 발생함에 따라 스크립트가 블럭되는 것을 확인한다.</p>
 <button onclick="addGarbageCollectableMemory();">메모리 추가</button>
 <div>Max Blocked Time: <span id="blockedTime"></span>ms</div>
-<script>
+<script id="code">
 
 function addGarbageCollectableMemory() {
     for (var i = 0; i < 1000; i++) {
@@ -42,5 +39,6 @@ process();
 
 
 </script>
+<script src="../js/code.js"></script>
 </body>
 </html>

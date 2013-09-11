@@ -1,0 +1,48 @@
+<!doctype html5>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Heap Profiling Test</title>
+<link href="../css/main.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<a href="../index.html">JavaScript Heap Profiling</a>
+<h1>Shallow size</h1>
+<p>개발자 도구의 Profiles 패널에서 Heap Snapshot을 찍어본다.<br>
+힙 영역에서 Window 객체에 할당된 값을 확인해본다.</p>
+<script id="code">
+// Primitive 값은 힙 프로파일링에 표시되지 않는다.
+var __smallNumber = 1000;
+
+// Float 형태이거나 숫자가 큰 경우엔 힙 영역에 할당된다.
+var __largeNumber = 1.4;
+
+// 한 문자열은 Shallow size와 Retained size가 동일하다.
+// 한 글자 당 2byte 씩, 24byte를 차지한다.
+var __shortString = 'small string';
+
+// 하지만 한글은 기대하는 것처럼 정확하게 2byte씩 차지하진 않는다.
+// ASCII 코드가 아닌 문자열은 내부적으로 별도로 처리하기 때문이고,
+// 힙 프로파일링에서도 Shallow size와 Retained size의 크기가 다르게 표현된다.
+var __shortKoreanString = '가나다';
+
+// 문자열이 길 더라도 동일하게 표시된다.
+var __mediumString = 'medium string medium string medium string medium string medium string medium string medium string medium string';
+
+// 문자열을 병합한 경우라면, 문자열의 참조로 더한다.
+// Shallow size 외에 참조의 크기만 더해져 있다.
+var __longString = __mediumString + __mediumString + __mediumString + __mediumString;
+
+// 숫자 배열
+// 숫자는 힙 스냅샷에 보이지 않는다.
+var __arrNumbers = [];
+for (var i = 0; i < 100000; i++) __arrNumbers[i] = i;
+
+// 문자 배열
+// 각 요소를 힙 스냅샷에서 확인할 수 있다.
+var __arrStrings = [];
+for (var i = 0; i < 100000; i++) __arrStrings[i] = 'str-' + i;
+</script>
+<script src="../js/code.js"></script>
+</body>
+</html>

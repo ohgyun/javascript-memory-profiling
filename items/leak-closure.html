@@ -3,19 +3,15 @@
 <head>
 <meta charset="utf-8">
 <title>Heap Profiling Test</title>
-<style>
-body {font-family:sans-serif;}
-button {display:block; margin:10px; padding:10px; font-size:15px;}
-.leakable {width:100px; background:orange;}
-</style>
+<link href="../css/main.css" rel="stylesheet" type="text/css">
 </head>
 <body>
-<h1>Heap Profiling Test</h1>
-<h2>클로저에 의한 메모리 릭</h2>
+<a href="../index.html">JavaScript Heap Profiling</a>
+<h1>클로저에 의한 메모리 릭</h1>
 <p>버튼 클릭 전/후의 힙 스냅샷을 비교한다. `notUsingBigStringInLeakable`의 Context에서 `bigString`이 존재함을 확인한다.</p>
 <button onclick="addLeakableClosure();">메모리 릭이 발생하는 클로저 생성</button>
 <button onclick="addStableClosure();">메모리 릭을 수정한 클로저 생성</button>
-<script>
+<script id="code">
 
 var leakables = [];
 function addLeakableClosure() {
@@ -60,5 +56,6 @@ function createStableClosure() {
 }
 
 </script>
+<script src="../js/code.js"></script>
 </body>
 </html>

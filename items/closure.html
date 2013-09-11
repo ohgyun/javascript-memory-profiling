@@ -3,21 +3,18 @@
 <head>
 <meta charset="utf-8">
 <title>Heap Profiling Test</title>
-<style>
-body {font-family:sans-serif;}
-button {display:block; margin:10px; padding:10px; font-size:15px;}
-</style>
+<link href="../css/main.css" rel="stylesheet" type="text/css">
 </head>
 <body>
-<h1>Heap Profiling Test</h1>
-<h2>클로저와 메모리</h2>
+<a href="../index.html">JavaScript Heap Profiling</a>
+<h1>클로저와 메모리</h1>
 <p>버튼 클릭 전/후의 힙 스냅샷을 비교한다. 스냅샷에서 closure 속성을 확인한다.<br>
 setTimeout과 클로저는 힙 할당 타임라인에서 보면 쉽게 이해할 수 있다.</p>
 <button id="btnA" onclick="createClosure();">DOM의 이벤트 핸들러로 클로저 생성</button>
 <button id="btnB" onclick="createClosure2();">클로저 내에서 Button 객체를 참조</button>
 <button onclick="createTemporaryClosure();">setTimeout과 클로저</button>
 
-<script>
+<script id="code">
 
 // 확인이 쉽게 큰 문자열을 생성한다.
 function createBigString() {
@@ -62,5 +59,6 @@ function createTemporaryClosure() {
 }
 
 </script>
+<script src="../js/code.js"></script>
 </body>
 </html>

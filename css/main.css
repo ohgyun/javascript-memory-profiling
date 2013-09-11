@@ -1,0 +1,6 @@
+body {font-family:Helvetica, arial, freesans, clean, sans-serif; line-height:1.4; color:#333;}
+h1 {font-size:1.8em; border-bottom:1px solid #ccc;}
+a {color:#4183c4;}
+button {display:block; margin:10px; padding:10px; font-size:1.2em;}
+p {padding:10px; border:1px solid #ccc; border-left-width:5px;}
+pre.code {margin-top:10px; padding:10px; font-size:0.8em; font-family:Consolas, "Liberation Mono", Courier, monospace; background:#efefef;}

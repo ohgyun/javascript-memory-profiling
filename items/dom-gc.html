@@ -3,15 +3,11 @@
 <head>
 <meta charset="utf-8">
 <title>Heap Profiling Test</title>
-<style>
-body {font-family:sans-serif;}
-button {display:block; margin:10px; padding:10px; font-size:15px;}
-div {margin:10px; width:100px; height:20px; background:red;}
-</style>
+<link href="../css/main.css" rel="stylesheet" type="text/css">
 </head>
 <body>
-<h1>Heap Profiling Test</h1>
-<h2>DOM and GC</h2>
+<a href="../index.html">JavaScript Heap Profiling</a>
+<h1>DOM and GC</h1>
 <p>타임라인 패널의 Record 버튼을 클릭하고, `DOM 노드 추가` 버튼을 클릭한다.<br>
 Memory 탭에서 DOM 노드의 증가 개수를 확인한다.</p>
 <button onclick="createElement();">도큐먼트에 추가하지 않고 DOM 노드 추가</button>
@@ -19,7 +15,7 @@ Memory 탭에서 DOM 노드의 증가 개수를 확인한다.</p>
 <button onclick="createManyElements();">많은 수의 DOM 노드 추가 (GC 확인)</button>
 <button onclick="forceGC();">강제로 GC 수행하기</button>
 <button onclick="createDetachedDom();">Detached DOM 노드 추가</button>
-<script>
+<script id="code">
 
 // 엘리먼트를 생성한다.
 // 이 엘리먼트는 도큐먼트에 추가되는 것이 아니고 unreachable 임에도 불구하고
@@ -72,5 +68,6 @@ function createDetachedDom() {
 // (타임라인과 오브젝트 트래커를 동시에 레코딩한 후 테스트하는 방법으로도 확인할 수 있다)
 
 </script>
+<script src="../js/code.js"></script>
 </body>
 </html>
