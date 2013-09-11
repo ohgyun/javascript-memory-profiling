@@ -1,0 +1,64 @@
+<!doctype html5>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Heap Profiling Test</title>
+<style>
+body {font-family:sans-serif;}
+button {display:block; margin:10px; padding:10px; font-size:15px;}
+.leakable {width:100px; background:orange;}
+</style>
+</head>
+<body>
+<h1>Heap Profiling Test</h1>
+<h2>클로저에 의한 메모리 릭</h2>
+<p>버튼 클릭 전/후의 힙 스냅샷을 비교한다. `notUsingBigStringInLeakable`의 Context에서 `bigString`이 존재함을 확인한다.</p>
+<button onclick="addLeakableClosure();">메모리 릭이 발생하는 클로저 생성</button>
+<button onclick="addStableClosure();">메모리 릭을 수정한 클로저 생성</button>
+<script>
+
+var leakables = [];
+function addLeakableClosure() {
+    leakables.push(createLeakableClosure());
+}
+
+function createLeakableClosure() {
+    var bigString = new Array(10000).join('BIG');
+    
+    function usingBigStringInLeakable() {
+        bigString;
+    }
+
+    function notUsingBigStringInLeakable() {
+        // 이 함수에서는 bigString을 참조하지 않는다.
+    }
+
+    return notUsingBigStringInLeakable;
+}
+
+
+var stables = [];
+function addStableClosure() {
+    stables.push(createStableClosure());
+}
+
+function createStableClosure() {
+    var bigString = new Array(10000).join('BIG');
+
+    function usingBigStringInStable() {
+        bigString;
+    }
+
+    function notUsingBigStringInStable() {
+
+    }
+
+    // 사용하지 않는 데이터는 null 처리한다.
+    bigString = null;
+
+    return notUsingBigStringInStable;
+}
+
+</script>
+</body>
+</html>

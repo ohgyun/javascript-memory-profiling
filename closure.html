@@ -13,21 +13,19 @@ button {display:block; margin:10px; padding:10px; font-size:15px;}
 <h2>클로저와 메모리</h2>
 <p>버튼 클릭 전/후의 힙 스냅샷을 비교한다. 스냅샷에서 closure 속성을 확인한다.<br>
 setTimeout과 클로저는 힙 할당 타임라인에서 보면 쉽게 이해할 수 있다.</p>
-<button id="btnA" onclick="createLeakableEventListener();">DOM의 이벤트 핸들러와 클로저 (A)</button>
-<button onclick="removeButtonA();">(A) 버튼을 문서에서 삭제</button>
-<button id="btnB" onclick="createStableEventListener();">메모리 처리가 잘 된 핸들러 (B)</button>
-<button id="release">(B) 버튼의 메모리 해제</button>
+<button id="btnA" onclick="createClosure();">DOM의 이벤트 핸들러로 클로저 생성</button>
+<button id="btnB" onclick="createClosure2();">클로저 내에서 Button 객체를 참조</button>
 <button onclick="createTemporaryClosure();">setTimeout과 클로저</button>
 
 <script>
 
+// 확인이 쉽게 큰 문자열을 생성한다.
 function createBigString() {
-    return new Array(10000).join('XXXXXXXXX');
+    return new Array(10000).join('XXXXXXXX');
 }
 
-
 // DOM에 이벤트 리스너를 추가할 때, 함수 종료 후에도 GC되지 않는다.
-function createLeakableEventListener() {
+function createClosure() {
     var button = document.getElementById('btnA');
     var bigString = createBigString();
     var bigStringNotUsed = createBigString();
@@ -35,32 +33,21 @@ function createLeakableEventListener() {
     button.onclick = function onButton_A_Click() {
         // 클로저로 button과 bigString을 참조하고 있다.
         // 함수가 종료된 이후에도 bigString은 GC되지 않는다.
-        // 함수 내에서 참조하고 있는 bigStringNotUsed에 대한 메모리는 할당되지 않는다.
-        buttuon;
+        // 함수 내에서 참조하고 있지 않는 button과 bigStringNotUsed에 대한 메모리는 할당되지 않는다.
         console.log(bigString);
     };
 }
 
-// Button A를 문서에서 삭제한다.
-// 하지만 클로저로 할당한 이벤트 핸들러는 삭제되지 않는다.
-// onButton_A_Click 함수 내에서 button 객체를 직접적으로 사용하고 있진 않지만,
-// 클로저 내의 context로 button 객체를 가지고 있기 때문이다.
-function removeButtonA() {
-    document.body.removeChild(document.getElementById('btnA'));
-}
-
-
-// 이벤트 핸들러에서 클로저로 데이터를 사용했다면 널 처리해준다. (1회성 데이터에 한함)
-function createStableEventListener() {
-    var button = document.getElementById('release');
-    var temporaryBigString = createBigString();
+// DOM의 이벤트 리스너에서 버튼 객체를 함께 참조한다.
+function createClosure2() {
+    var button = document.getElementById('btnB');
+    var bigString = createBigString();
     button.onclick = function onButton_B_Click() {
-        console.log(temporaryBigString);
-        // 1회성 핸들러였다면 null 처리해서 GC되도록 한다.
-        button.onclick = null;
+        // 클로저에서 직접적으로 사용하고 있는 객체에 대해서만 메모리 할당이 일어난다.
+        button.foo = 'bar';
+        console.log(bigString);
     };
 }
-
 
 function createTemporaryClosure() {
     var bigString = createBigString();
@@ -71,7 +58,7 @@ function createTemporaryClosure() {
 
         // 만약 여기서 bigString을 참조하고 있지 않다면 메모리가 할당되지 않는다.
         // 즉, 부모 함수 안에 자식 함수를 정의한다고 해서, 클로저로 부모의 모든 변수를 갖는 것은 아니다.
-    }, 3000);
+    }, 2000);
 }
 
 </script>
