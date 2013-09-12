@@ -12,7 +12,6 @@
 <button onclick="addLeakableClosure();">메모리 릭이 발생하는 클로저 생성</button>
 <button onclick="addStableClosure();">메모리 릭을 수정한 클로저 생성</button>
 <script id="code">
-
 var leakables = [];
 function addLeakableClosure() {
     leakables.push(createLeakableClosure());
@@ -54,7 +53,6 @@ function createStableClosure() {
 
     return notUsingBigStringInStable;
 }
-
 </script>
 <script src="../js/code.js"></script>
 </body>

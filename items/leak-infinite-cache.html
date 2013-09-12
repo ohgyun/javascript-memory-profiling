@@ -1,0 +1,35 @@
+<!doctype html5>
+<html>
+<head>
+<meta charset="utf-8">
+<title>JavaScript Heap Profiling</title>
+<link href="../css/main.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<a href="../index.html">JavaScript Heap Profiling</a>
+<h1>무한정 늘어나는 캐시</h1>
+<p>버튼을 클릭하고, 힙 할당 타임라인에서 할당 여부를 확인한다.</p>
+<button onclick="addItem();">아이템 추가</button>
+<button onclick="addItemToPool();">아이템 풀에 추가</button>
+<div id="buttons"></div>
+<script id="code">
+var itemCache = [];
+var poolIdx = 0;
+
+function Item() {
+    this.str = new Array(10000).join('BIG');
+}
+
+function addItem() {
+    itemCache.push(new Item());
+}
+
+// 아이템을 풀로 관리한다.
+function addItemToPool() {
+    poolIdx = ++poolIdx % 5;
+    itemCache[poolIdx] = new Item();
+}
+</script>
+<script src="../js/code.js"></script>
+</body>
+</html>

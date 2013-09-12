@@ -1,0 +1,44 @@
+<!doctype html5>
+<html>
+<head>
+<meta charset="utf-8">
+<title>JavaScript Heap Profiling</title>
+<link href="../css/main.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<a href="../index.html">JavaScript Heap Profiling</a>
+<h1>DOM을 삭제해도 남아있는 이벤트 핸들러</h1>
+<p>버튼을 클릭하고, 타임라인과 힙 할당 타임라인에서 확인한다.<br>
+타임라인에서 이벤트 리스너는 삭제됐지만, 힙 할당 타임라인에서 할당이 해제되지 않은 것을 확인한다.</p>
+<button onclick="addButtonAndZombieHandler();">버튼과 핸들러 추가</button>
+<button onclick="removeButtons();">모든 버튼 삭제</button>
+<div id="buttons"></div>
+<script id="code">
+// 핸들러를 별도로 관리한다.
+var handlers = [];
+
+// 버튼과 핸들러를 추가한다.
+function addButtonAndZombieHandler() {
+    var button = document.createElement('button');
+    button.innerHTML = '추가한 버튼';
+
+    // 별도의 공간에 핸들러를 할당한다.
+    var idx = handlers.length;
+    handlers[idx] = function () {
+        console.log('버튼 ' + idx);
+    };
+
+    // 버튼에 핸들러에 대한 참조를 추가한다.
+    button.addEventListener('click', handlers[idx]);
+
+    document.getElementById('buttons').appendChild(button);
+}
+
+// 핸들러 삭제 없이 DOM만 삭제한다.
+function removeButtons() {
+    document.getElementById('buttons').innerHTML = '';
+}
+</script>
+<script src="../js/code.js"></script>
+</body>
+</html>

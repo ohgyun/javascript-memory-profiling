@@ -13,7 +13,6 @@ GC가 발생함에 따라 스크립트가 블럭되는 것을 확인한다.</p>
 <button onclick="addGarbageCollectableMemory();">메모리 추가</button>
 <div>Max Blocked Time: <span id="blockedTime"></span>ms</div>
 <script id="code">
-
 function addGarbageCollectableMemory() {
     for (var i = 0; i < 1000; i++) {
         document.createElement('div');
@@ -36,8 +35,6 @@ var process = function () {
     requestAnimationFrame(process);
 };
 process();
-
-
 </script>
 <script src="../js/code.js"></script>
 </body>

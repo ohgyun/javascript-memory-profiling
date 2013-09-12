@@ -1,0 +1,47 @@
+<!doctype html5>
+<html>
+<head>
+<meta charset="utf-8">
+<title>JavaScript Heap Profiling</title>
+<link href="../css/main.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<a href="../index.html">JavaScript Heap Profiling</a>
+<h1>3 스냅샷 테크닉</h1>
+<p>아이템을 생성/삭제하며 스냅샷을 찍는다.<br>
+각 스냅샷을 비교하며 버그가 발생한 객체를 찾아낸다.</p>
+<button onclick="addFiveItems();">아이템 생성</button>
+<button onclick="removeItemsAsync();">아이텍 삭제 (버그)</button>
+<button onclick="removeItems();">아이템 삭제 (정상)</button>
+<script id="code">
+var itemCache = [];
+
+function Item(x) {
+    this.x = x;
+}
+
+function addFiveItems() {
+    for (var i = 0; i < 5; i++) {
+        itemCache.push(new Item(i.toString()));    
+    }
+}
+
+function removeItemsAsync() {
+    for (var i = 0; i < 5; i++) {
+        // 버그를 발생한다.
+        // 클로저는 참조로 전달하기 때문에
+        // 아래 코드가 실행될 때 i의 값은 5이다.
+        setTimeout(function () {
+            // 제대로 아이템을 삭제하지 못한다.
+            itemCache[i] = null;
+        }, 0);
+    }
+}
+
+function removeItems() {
+    itemCache = [];
+}
+</script>
+<script src="../js/code.js"></script>
+</body>
+</html>

@@ -13,12 +13,10 @@ setTimeout과 클로저는 힙 할당 타임라인에서 보면 쉽게 이해할
 <button id="btnA" onclick="createClosure();">DOM의 이벤트 핸들러로 클로저 생성</button>
 <button id="btnB" onclick="createClosure2();">클로저 내에서 Button 객체를 참조</button>
 <button onclick="createTemporaryClosure();">setTimeout과 클로저</button>
-
 <script id="code">
-
 // 확인이 쉽게 큰 문자열을 생성한다.
 function createBigString() {
-    return new Array(10000).join('XXXXXXXX');
+    return new Array(10000).join('BIG');
 }
 
 // DOM에 이벤트 리스너를 추가할 때, 함수 종료 후에도 GC되지 않는다.
@@ -57,7 +55,6 @@ function createTemporaryClosure() {
         // 즉, 부모 함수 안에 자식 함수를 정의한다고 해서, 클로저로 부모의 모든 변수를 갖는 것은 아니다.
     }, 2000);
 }
-
 </script>
 <script src="../js/code.js"></script>
 </body>

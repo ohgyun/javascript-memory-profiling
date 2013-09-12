@@ -1,0 +1,46 @@
+<!doctype html5>
+<html>
+<head>
+<meta charset="utf-8">
+<title>JavaScript Heap Profiling</title>
+<link href="../css/main.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<a href="../index.html">JavaScript Heap Profiling</a>
+<h1>DOM 개수만큼 늘어나는 이벤트 핸들러</h1>
+<p>버튼을 클릭하고, 타임라인에서 이벤트 핸들러의 개수가 증가한 것을 확인한다.</p>
+<button onclick="addButtonAndHandler();">버튼과 핸들러 추가</button>
+<button onclick="addButtonAndDelegateEvent();">이벤트 딜리게이션 방식으로 추가</button>
+<div id="buttons"></div>
+<script id="code">
+// 버튼과 핸들러를 추가한다.
+function addButtonAndHandler() {
+    var button = document.createElement('button');
+    button.innerHTML = '추가한 버튼';
+    button.addEventListener('click', function () {
+        console.log('button clicked');
+    });
+    document.getElementById('buttons').appendChild(button);
+}
+
+// 이벤트 딜리게이션 방식으로 할당한다.
+function addButtonAndDelegateEvent() {
+    var buttons = document.getElementById('buttons');
+    
+    // 버튼을 깜싸고 있는 래퍼에 이벤트를 할당한다.
+    // 중복으로 같은 함수를 할당하지만 테스트용이므로 무시한다.
+    buttons.onclick = function (e) {
+        if (e.target.tagName === 'BUTTON') {
+            console.log('button clicked');
+        }
+    };
+
+    // 버튼을 추가한다.
+    var button = document.createElement('button');
+    button.innerHTML = '이벤트 할당 없이 추가한 버튼';
+    buttons.appendChild(button);
+}
+</script>
+<script src="../js/code.js"></script>
+</body>
+</html>
